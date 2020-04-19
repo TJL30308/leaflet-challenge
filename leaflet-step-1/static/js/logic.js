@@ -1,7 +1,7 @@
 
 var myMap = L.map("map", {
     center: [39.50, -98.35],
-    zoom: 2
+    zoom: 3
   });
   
 
@@ -45,8 +45,35 @@ function createMarkers(data){
       fillOpacity: 0.75,
       radius: mag * 50000
     }).bindPopup("<h4> Location: " + place + "</h4>" + "<p> Magnitude: " + mag + "</p>").addTo(myMap);
-
+  
   };
+
+  var legend = L.control({position: 'bottomright'});
+
+  legend.onAdd = function (map) {
+      var div = L.DomUtil.create("div", "info legend");
+      var limits = [0, 1, 2, 3, 4, 5];
+      var labels = [];
+
+    // Add min & max
+    var legendInfo = "<h1>Earthquake Magnitude</h1>" +
+      "<div class=\"labels\">" +
+        "<div class=\"min\">" + limits[0] + "</div>" +
+        "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
+      "</div>";
+
+    div.innerHTML = legendInfo;
+
+    limits.forEach(function(limit, index) {
+      labels.push("<li style=\"background-color: " + getColor(limit) + "\"></li>");
+    });
+
+    div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+
+  return div;
+  };
+
+  legend.addTo(myMap);
 
 };
 
