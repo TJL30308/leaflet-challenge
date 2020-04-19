@@ -43,7 +43,7 @@ function createMarkers(data){
       color: getColor(mag),
       fill: getColor(mag),
       fillOpacity: 0.75,
-      radius: mag * 30000
+      radius: mag * 50000
     }).bindPopup("<h4> Location: " + place + "</h4>" + "<p> Magnitude: " + mag + "</p>").addTo(myMap);
 
   };
